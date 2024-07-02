@@ -3,7 +3,7 @@
 <main class="main-content p-3">
   <!-- 大標 -->
   <div class="d-flex justify-content-between align-items-center">
-    <h2 class="m-0">查看訂單</h2>
+    <h2 class="m-0">評論管理</h2>
   </div>
   <hr />
   <div class="row">
@@ -12,37 +12,27 @@
         <thead>
           <tr>
             <th><i class="fa-solid fa-trash"></i></th>
-            <th>訂單ID</th>
-            <th>客戶名稱</th>
-            <th>營地名稱</th>
-            <th>房型</th>
-            <th>人數</th>
-            <th>訂單狀態</th>
-            <th>入住日期</th>
-            <th>退宿日期</th>
-            <th>總天數</th>
-            <th>總價</th>
-            <th>備註</th>
+            <th>評論ID</th>
+            <th>會員名稱</th>
+            <th>商家名稱</th>
+            <th>星數</th>
+            <th>留言內容</th>
+            <th>發表時間</th>
             <th><i class="fa-solid fa-pen-to-square"></i></th>
           </tr>
         </thead>
         <tbody>
-          <% for(let r1 of rows1) { %>
+          <% for(let r3 of rows3) { %>
           <tr>
             <td>
               <a href="javascript: deleteOne()"><i class="fa-solid fa-trash"></i></a>
             </td>
-            <td><%= r1.orders_id %></td>
-            <td><%= r1.customers_name %></td>
-            <td><%= r1.stores_name %></td>
-            <td><%= r1.rooms_campsites_name %></td>
-            <td><%= r1.guests %></td>
-            <td><%= r1.payment_status %></td>
-            <td><%= r1.checkin_date %></td>
-            <td><%= r1.checkout_date %></td>
-            <td><%= r1.total_day %></td>
-            <td><%= r1.total_price %></td>
-            <td><%= r1.note %></td>
+            <td><%= r3.comment_id %></td>
+            <td><%= r3.customer_name %></td>
+            <td><%= r3.store_name %></td>
+            <td><%= r3.comment_star %></td>
+            <td><%= r3.comment_content %></td>
+            <td><%= r3.comment_created_at %></td>
             <td>
               <a href="/address-book/edit/"><i class="fa-solid fa-pen-to-square"></i></a>
             </td>
