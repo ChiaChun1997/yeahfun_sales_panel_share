@@ -1,0 +1,54 @@
+<%- include("../parts/html-head") %>
+<%- include("../parts/navbar") %>
+
+<style>
+
+</style>
+
+<main class="main-content p-3">
+  <!-- 大標 -->
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="m-0">營地管理</h2>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th><i class="fa-solid fa-trash"></i></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Introduction</th>
+            <th>update_time</th>
+            <th><i class="fa-solid fa-pen-to-square"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(let r of rows) { %>
+          <tr>
+            <td>
+              <a href="javascript: deleteOne(<%= r.stores_id %>)"><i class="fa-solid fa-trash"></i></a>
+            </td>
+            <td><%= r.stores_id %></td>
+            <td><%= r.name %></td>
+            <td><%= r.mobile %></td>
+            <td><%= r.address %></td>
+            <td><%= r.introduction %></td>
+            <td><%= r.update_time %></td>
+            <td>
+              <a href="/address-book/edit/<%= r.stores_id %>"><i class="fa-solid fa-pen-to-square"></i></a>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+</main>
+
+<%- include("../parts/html-foot") %>
+<%- include("../parts/scripts") %>
