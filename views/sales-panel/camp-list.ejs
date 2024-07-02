@@ -48,6 +48,7 @@
     </div>
   </div>
 
+  <!-- 分頁按鈕 -->
   <div class="col-6">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
@@ -88,5 +89,16 @@
   
 </main>
 
-<%- include("../parts/html-foot") %>
 <%- include("../parts/scripts") %>
+<script>
+  // const deleteOne = async (stores_id) => {
+  //   if (confirm(`是否要刪除編號為 ${stores_id} 的資料?`)) {
+  //     const r = await fetch(`/sales-panel/camp-list/${stores_id}`, { method: "DELETE" });
+  //     const result = await r.json();
+  //     console.log(result);
+
+  //     location.reload(); // 重載頁面
+  //   }
+  // };
+</script>
+<%- include("../parts/html-foot") %>

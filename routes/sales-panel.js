@@ -2,7 +2,7 @@ import express from "express";
 import moment from "moment-timezone";
 import db from "./../utils/connect-mysql.js";
 
-const dateFormat = "YYYY-MM-DD";
+const dateFormat = "YYYY-MM-DD HH:mm:ss";
 const router = express.Router();
 
 // 取得資料的 function const getListData
@@ -47,6 +47,13 @@ const getListData = async (req) => {
 
   [rows] = await db.query(sql2);
 
+  rows.forEach((r) => {
+    // "JS 的 Date 類型"，轉換為日期格式字串
+    if (r.update_time) {
+      r.update_time = moment(r.update_time).format(dateFormat);
+    }
+  });
+
   return {
     store_count,
     totalPages,
@@ -75,5 +82,35 @@ router.get("/camp-list", async (req, res) => {
 
   res.render("sales-panel/camp-list", result);
 });
+
+router.get("/order-list", async (req, res) => {
+  const result = await getListData(req);
+  // 轉向
+  if (result.redirect) {
+    return res.redirect(result.redirect);
+  }
+
+  res.render("sales-panel/order-list", result);
+});
+
+
+// 刪除資料
+// 比較符合 RESTful API 的寫法
+// router.delete("/:stores_id", async (req, res) => {
+//   const output = {
+//     success: false,
+//     result: {},
+//   };
+
+//   let stores_id = +req.params.stores_id || 0;
+//   if (stores_id) {
+//     const sql = `DELETE FROM address_book WHERE stores_id=${stores_id}`;
+//     const [result] = await db.query(sql);
+//     output.result = result;
+//     output.success = !!result.affectedRows;
+//   }
+
+//   res.json(output);
+// });
 
 export default router;
