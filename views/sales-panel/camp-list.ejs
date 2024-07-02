@@ -54,13 +54,13 @@
       <ul class="pagination">
         <li class="page-item <%= page === 1 ? "disabled" : "" %>">
           <a class="page-link" href="?<%= new URLSearchParams({...qs, page: 1}) %>">
-            <i class="fa-solid fa-circle-left"></i>
+            <i class="fa-solid fa-angles-left"></i>
           </a>
         </li>
 
         <li class="page-item <%= page === 1 ? "disabled" : "" %>">
           <a class="page-link" href="?<%= new URLSearchParams({...qs, page: page - 1}) %>">
-            <i class="fa-regular fa-circle-left"></i>
+            <i class="fa-solid fa-chevron-left"></i>
           </a>
         </li>
 
@@ -74,13 +74,13 @@
 
         <li class="page-item <%= page === totalPages ? "disabled" : "" %>">
           <a class="page-link" href="?<%= new URLSearchParams({...qs, page: page + 1}) %>">
-            <i class="fa-regular fa-circle-right"></i>
+            <i class="fa-solid fa-chevron-right"></i>
           </a>
         </li>
 
         <li class="page-item <%= page === totalPages ? "disabled" : "" %>">
           <a class="page-link" href="?<%= new URLSearchParams({...qs, page: totalPages}) %>">
-            <i class="fa-solid fa-circle-right"></i>
+            <i class="fa-solid fa-angles-right"></i>
           </a>
         </li>
       </ul>

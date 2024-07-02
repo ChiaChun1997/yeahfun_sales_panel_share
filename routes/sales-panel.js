@@ -183,14 +183,20 @@ const getCouponListData = async (req) => {
     }
   }
 
-  const sql3 = ``;
+  const sql2 = `SELECT * FROM coupon WHERE owners_id=${id}`;
 
-  [rows2] = await db.query(sql3);
+  [rows2] = await db.query(sql2);
 
   rows2.forEach((r) => {
     // "JS 的 Date 類型"，轉換為日期格式字串
-    if (r.checkin_date) {
-      r.checkin_date = moment(r.checkin_date).format(dateFormat2);
+    if (r.time_start) {
+      r.time_start = moment(r.time_start).format(dateFormat2);
+    }
+  });
+  rows2.forEach((r) => {
+    // "JS 的 Date 類型"，轉換為日期格式字串
+    if (r.time_end) {
+      r.time_end = moment(r.time_end).format(dateFormat2);
     }
   });
 
@@ -305,6 +311,11 @@ router.get("/order-list", async (req, res) => {
   }
 
   res.render("sales-panel/order-list", result);
+});
+
+router.get("/api-coupon-list", async (req, res) => {
+  const result = await getCouponListData(req);
+  res.json(result);
 });
 
 router.get("/coupon-list", async (req, res) => {
