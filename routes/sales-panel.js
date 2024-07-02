@@ -13,7 +13,12 @@ const getListData = async (req) => {
   let id = req.session.sales.id || 1;
 
   if (page < 1) {
-    return res.redirect(`?page=1`); // 轉向
+    // return res.redirect(`?page=1`); // 轉向
+    return {
+      success: false,
+      redirect: `?page=1`, // 需要轉向
+      info: "page 值太小",
+    }
   }
 
   const sql =
@@ -27,7 +32,12 @@ const getListData = async (req) => {
   if (store_count > 0) {
     totalPages = Math.ceil(store_count / perPage);
     if (page > totalPages) {
-      return res.redirect(`?page=${totalPages}`);
+      // return res.redirect(`?page=${totalPages}`);
+      return {
+        success: false,
+        redirect: `?page=${totalPages}`, // 需要轉向
+        info: "page 值太大",
+      };
     }
   }
 

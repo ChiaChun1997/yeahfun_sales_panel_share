@@ -47,6 +47,44 @@
       </table>
     </div>
   </div>
+
+  <div class="col-6">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item <%= page === 1 ? "disabled" : "" %>">
+          <a class="page-link" href="?<%= new URLSearchParams({...qs, page: 1}) %>">
+            <i class="fa-solid fa-circle-left"></i>
+          </a>
+        </li>
+
+        <li class="page-item <%= page === 1 ? "disabled" : "" %>">
+          <a class="page-link" href="?<%= new URLSearchParams({...qs, page: page - 1}) %>">
+            <i class="fa-regular fa-circle-left"></i>
+          </a>
+        </li>
+
+        <!-- paramsObj => 單層複製 qs 物件，並添加 page 屬性的對象 -->
+        <!-- URLSearchParams() => 把物件轉換成 query string(urlencoded)，生成包含所有查詢參數的字串 -->
+        <% for(let i = page - 5; i <= page + 5; i++) if(i >= 1 && i <= totalPages) { const paramsObj = {...qs, page: i} %>
+        <li class="page-item <%= i === page ? "active" : "" %>">
+          <a class="page-link" href="?<%= new URLSearchParams(paramsObj) %>"><%= i %></a>
+        </li>
+        <% } %>
+
+        <li class="page-item <%= page === totalPages ? "disabled" : "" %>">
+          <a class="page-link" href="?<%= new URLSearchParams({...qs, page: page + 1}) %>">
+            <i class="fa-regular fa-circle-right"></i>
+          </a>
+        </li>
+
+        <li class="page-item <%= page === totalPages ? "disabled" : "" %>">
+          <a class="page-link" href="?<%= new URLSearchParams({...qs, page: totalPages}) %>">
+            <i class="fa-solid fa-circle-right"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
   
 </main>
 
