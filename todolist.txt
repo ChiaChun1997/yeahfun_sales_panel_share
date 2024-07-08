@@ -6,5 +6,6 @@
   4.查看訂單
 
 所有賣家密碼: 123456, $2b$10$jH4xiGHSnPnneodJ6hsc1.N4KNJr7zidCg7c1dQRv2qcrl9ETRz/W
+owner_id = 10 有資料
 
 進階: 數據分析(?)、財務管理(?)
