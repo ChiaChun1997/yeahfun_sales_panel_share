@@ -1,6 +1,7 @@
 import express from "express";
 import moment from "moment-timezone";
 import db from "./../utils/connect-mysql.js";
+import upload from "./../utils/upload-imgs.js";
 
 const dateFormat = "YYYY-MM-DD HH:mm:ss";
 const dateFormat2 = "YYYY-MM-DD";
@@ -298,6 +299,40 @@ router.get("/camp-list", async (req, res) => {
   res.render("sales-panel/camp-list", result);
 });
 
+router.get("/camp-list-add", async (req, res) => {
+  const result = await getCampSiteListData(req);
+  // 轉向
+  if (result.redirect) {
+    return res.redirect(result.redirect);
+  }
+
+  res.render("sales-panel/camp-list-add", result);
+});
+
+router.post("/camp-list-add", upload.none(), async (req, res) => {
+  const output = {
+    success: false,
+    bodyData: req.body, // 除錯用
+    result: {},
+  };
+
+  const sql = `INSERT INTO stores set ? `;
+  // const sql3 = `INSERT INTO stores(owners_id, name, mobile, address, longitude, latitude, altitude, precautions, introduction, update_time) VALUES (?,?,?,?,?,?,?,?,?,NOW())`;
+  const data = { ...req.body, update_time: new Date() };
+
+
+  try {
+    const [result] = await db.query(sql, [data]);
+    output.result = result;
+    output.success = !!result.affectedRows;
+  } catch (ex) {
+    // sql 發生錯誤
+    output.error = ex; // 有安全上的問題，只在開發時期除錯用
+  }
+
+  res.json(output);
+});
+
 router.get("/api-order-list", async (req, res) => {
   const result = await getOrderListData(req);
   res.json(result);
@@ -326,6 +361,16 @@ router.get("/coupon-list", async (req, res) => {
   }
 
   res.render("sales-panel/coupon-list", result);
+});
+
+router.get("/coupon-list-create", async (req, res) => {
+  const result = await getCouponListData(req);
+  // 轉向
+  if (result.redirect) {
+    return res.redirect(result.redirect);
+  }
+
+  res.render("sales-panel/coupon-list-create", result);
 });
 
 router.get("/api-comment-list", async (req, res) => {

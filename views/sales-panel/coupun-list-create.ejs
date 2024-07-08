@@ -1,0 +1,85 @@
+<%- include("../parts/html-head") %>
+<%- include("../parts/navbar") %>
+
+<main class="main-content p-3">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="m-0">新增營地</h2>
+  </div>
+  <hr />
+
+  <div class="px-5">
+    <form name="form1" onsubmit="sendData(event)" style="margin: 20px">
+      <div class="pb-3">
+        <label for="owners_id" class="form-label">賣家編號</label>
+        <input
+          class="form-control"
+          type="number"
+          id="owners_id"
+          name="owners_id"
+          value="<%= session.sales.id %>"
+          readonly
+        />
+      </div>
+
+      <div class="pb-3">
+        <label for="name" class="form-label">場地名稱</label>
+        <input class="form-control" type="text" id="name" name="name" />
+      </div>
+
+      <div class="pb-3">
+        <label for="mobile" class="form-label">電話號碼</label>
+        <input class="form-control" type="text" id="mobile" name="mobile" />
+      </div>
+
+      <div class="pb-3">
+        <label for="address" class="form-label">地址</label>
+        <input class="form-control" type="text" id="address" name="address" />
+      </div>
+
+      <div class="pb-3">
+        <label for="longitude" class="form-label">經度</label>
+        <input
+          class="form-control"
+          type="text"
+          id="longitude"
+          name="longitude"
+        />
+      </div>
+
+      <div class="pb-3">
+        <label for="latitude" class="form-label">緯度</label>
+        <input class="form-control" type="text" id="latitude" name="latitude" />
+      </div>
+
+      <div class="pb-3">
+        <label for="altitude" class="form-label">高度</label>
+        <input class="form-control" type="text" id="altitude" name="altitude" />
+      </div>
+
+      <div class="pb-3">
+        <label for="precautions" class="form-label">注意事項</label>
+        <textarea
+          class="form-control"
+          id="precautions"
+          name="precautions"
+          rows="5"
+        ></textarea>
+      </div>
+
+      <div class="pb-3">
+        <label for="introduction" class="form-label">場地簡介</label>
+        <textarea
+          class="form-control"
+          id="introduction"
+          name="introduction"
+          rows="5"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">確定新增</button>
+    </form>
+  </div>
+</main>
+
+<%- include("../parts/scripts") %>
+<%- include("../parts/html-foot") %>
