@@ -317,7 +317,6 @@ router.post("/camp-list-add", upload.none(), async (req, res) => {
   };
 
   const sql = `INSERT INTO stores set ? `;
-  // const sql3 = `INSERT INTO stores(owners_id, name, mobile, address, longitude, latitude, altitude, precautions, introduction, update_time) VALUES (?,?,?,?,?,?,?,?,?,NOW())`;
   const data = { ...req.body, update_time: new Date() };
 
 
@@ -363,14 +362,36 @@ router.get("/coupon-list", async (req, res) => {
   res.render("sales-panel/coupon-list", result);
 });
 
-router.get("/coupon-list-create", async (req, res) => {
+router.get("/coupon-list-add", async (req, res) => {
   const result = await getCouponListData(req);
   // 轉向
   if (result.redirect) {
     return res.redirect(result.redirect);
   }
 
-  res.render("sales-panel/coupon-list-create", result);
+  res.render("sales-panel/coupon-list-add", result);
+});
+
+router.post("/coupon-list-add", upload.none(), async (req, res) => {
+  const output = {
+    success: false,
+    bodyData: req.body, // 除錯用
+    result: {},
+  };
+
+  const sql = `INSERT INTO coupon set ? `;
+  const data = { ...req.body };
+
+  try {
+    const [result] = await db.query(sql, [data]);
+    output.result = result;
+    output.success = !!result.affectedRows;
+  } catch (ex) {
+    // sql 發生錯誤
+    output.error = ex; // 有安全上的問題，只在開發時期除錯用
+  }
+
+  res.json(output);
 });
 
 router.get("/api-comment-list", async (req, res) => {

@@ -1,0 +1,146 @@
+<%- include("../parts/html-head") %> <%- include("../parts/navbar") %>
+
+<main class="main-content p-3">
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="m-0">新增優惠券</h2>
+  </div>
+  <hr />
+
+  <div class="px-5">
+    <form name="form1" onsubmit="sendData(event)" style="margin: 20px">
+      <input
+        class="form-control"
+        type="number"
+        id="owners_id"
+        name="owners_id"
+        value="<%= session.sales.id %>"
+        hidden
+      />
+
+      <div class="pb-3">
+        <label for="name" class="form-label">優惠券名稱</label>
+        <input class="form-control" type="text" id="name" name="name" />
+      </div>
+
+      <div class="pb-3">
+        <label for="hash" class="form-label">折扣碼</label>
+        <input class="form-control" type="text" id="hash" name="hash" />
+      </div>
+
+      <div class="pb-3">
+        <label for="coupon_off" class="form-label">折扣</label>
+        <input
+          class="form-control"
+          type="number"
+          max="0.9"
+          min="0.1"
+          step="0.1"
+          id="coupon_off"
+          name="coupon_off"
+        />
+      </div>
+
+      <div class="pb-3">
+        <label for="time_start" class="form-label">開始日期</label>
+        <input
+          class="form-control"
+          type="date"
+          id="time_start"
+          name="time_start"
+        />
+      </div>
+
+      <div class="pb-3">
+        <label for="time_end" class="form-label">結束日期</label>
+        <input class="form-control" type="date" id="time_end" name="time_end" />
+      </div>
+
+      <button type="submit" class="btn btn-primary">確定新增</button>
+    </form>
+  </div>
+</main>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">資料新增結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-success" role="alert">增加成功</div>
+      </div>
+      <div class="modal-footer">
+        <a href="/sales-panel/coupon-list" class="btn btn-primary">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModa2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabe2">資料新增結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">增加失敗</div>
+      </div>
+      <div class="modal-footer">
+        <a href="/sales-panel/coupon-list-add" class="btn btn-primary">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("../parts/scripts") %>
+
+<script>
+  const sendData = (e) => {
+    e.preventDefault();
+
+    const fd = new FormData(document.form1);
+
+    fetch("", {
+      method: "POST",
+      body: fd,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          myModal.show();
+        } else {
+          myModa2.show();
+        }
+      });
+  };
+
+  const myModal = new bootstrap.Modal("#exampleModal");
+  const myModa2 = new bootstrap.Modal("#exampleModa2");
+</script>
+
+<%- include("../parts/html-foot") %>
