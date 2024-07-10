@@ -79,6 +79,36 @@
 <!-- Modal -->
 <div
   class="modal fade"
+  id="exampleModal1"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">登入結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-success" role="alert">登入成功</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="confirmButton1" data-bs-dismiss="modal">
+          確定
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
   id="exampleModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
@@ -149,7 +179,10 @@
       .then((data) => {
         console.log(data);
         if (data.success) {
-          location.href = "/";
+          myModal1.show();
+          document.getElementById("confirmButton1").addEventListener("click", () => {
+            window.location.href = "/sales-panel";
+          });
         } else {
           myModal.show();
         }
@@ -161,9 +194,7 @@
   };
 
 
-//   const myModal = new bootstrap.Modal('#exampleModal', {
-//   keyboard: false
-// })
+  const myModal1 = new bootstrap.Modal('#exampleModal1');
   const myModal = new bootstrap.Modal('#exampleModal');
 </script>
 <%- include("parts/html-foot") %>
