@@ -299,6 +299,50 @@ router.get("/camp-list", async (req, res) => {
   res.render("sales-panel/camp-list", result);
 });
 
+router.get("/camp-list-edit/:id", async (req, res) => {
+  const id = +req.params.id || 0;
+  if (!id) return res.redirect("/sales-panel/camp-list");
+
+
+  const sql = `SELECT * FROM stores WHERE stores_id=${id}`;
+  const [rows] = await db.query(sql);
+  if (rows.length === 0) {
+    // 沒有該筆資料時，跳回列表頁
+    return res.redirect("/sales-panel/camp-list");
+  }
+
+  const row = rows[0];
+
+  res.render("sales-panel/camp-list-edit", row);
+});
+
+router.put("/camp-list-edit/:id", upload.none(), async (req, res) => {
+  const output = {
+    success: false,
+    bodyData: req.body, // 除錯用
+    result: {},
+  };
+
+  const id = +req.params.id || 0;
+  if (!id) {
+    return res.json({ success: false, info: "不正確的主鍵" });
+  }
+
+  const sql = `UPDATE stores SET ? WHERE stores_id=${id}`;
+  const data = { ...req.body, update_time: new Date() };
+
+  try {
+    const [result] = await db.query(sql, [data]);
+    output.result = result;
+    output.success = !!(result.affectedRows && result.changedRows);
+  } catch (ex) {
+    // sql 發生錯誤
+    output.error = ex; // 有安全上的問題，只在開發時期除錯用
+  }
+
+  res.json(output);
+});
+
 router.get("/camp-list-add", async (req, res) => {
   const result = await getCampSiteListData(req);
   // 轉向
