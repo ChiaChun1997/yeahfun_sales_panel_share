@@ -11,7 +11,7 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th><i class="fa-solid fa-trash"></i></th>
+            <!-- <th><i class="fa-solid fa-trash"></i></th> -->
             <th>訂單ID</th>
             <th>客戶名稱</th>
             <th>營地名稱</th>
@@ -23,15 +23,15 @@
             <th>總天數</th>
             <th>總價</th>
             <th>備註</th>
-            <th><i class="fa-solid fa-pen-to-square"></i></th>
+            <!-- <th><i class="fa-solid fa-pen-to-square"></i></th> -->
           </tr>
         </thead>
         <tbody>
           <% for(let r1 of rows1) { %>
           <tr>
-            <td>
+            <!-- <td>
               <a href="javascript: deleteOne()"><i class="fa-solid fa-trash"></i></a>
-            </td>
+            </td> -->
             <td><%= r1.orders_id %></td>
             <td><%= r1.customers_name %></td>
             <td><%= r1.stores_name %></td>
@@ -43,9 +43,9 @@
             <td><%= r1.total_day %></td>
             <td><%= r1.total_price %></td>
             <td><%= r1.note %></td>
-            <td>
+            <!-- <td>
               <a href="/address-book/edit/"><i class="fa-solid fa-pen-to-square"></i></a>
-            </td>
+            </td> -->
           </tr>
           <% } %>
         </tbody>

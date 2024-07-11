@@ -11,31 +11,31 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th><i class="fa-solid fa-trash"></i></th>
+            <!-- <th><i class="fa-solid fa-trash"></i></th> -->
             <th>評論ID</th>
             <th>會員名稱</th>
             <th>商家名稱</th>
             <th>星數</th>
             <th>留言內容</th>
             <th>發表時間</th>
-            <th><i class="fa-solid fa-pen-to-square"></i></th>
+            <!-- <th><i class="fa-solid fa-pen-to-square"></i></th> -->
           </tr>
         </thead>
         <tbody>
           <% for(let r3 of rows3) { %>
           <tr>
-            <td>
+            <!-- <td>
               <a href="javascript: deleteOne()"><i class="fa-solid fa-trash"></i></a>
-            </td>
+            </td> -->
             <td><%= r3.comment_id %></td>
             <td><%= r3.customer_name %></td>
             <td><%= r3.store_name %></td>
             <td><%= r3.comment_star %></td>
             <td><%= r3.comment_content %></td>
             <td><%= r3.comment_created_at %></td>
-            <td>
+            <!-- <td>
               <a href="/address-book/edit/"><i class="fa-solid fa-pen-to-square"></i></a>
-            </td>
+            </td> -->
           </tr>
           <% } %>
         </tbody>
