@@ -574,6 +574,54 @@ router.post("/coupon-list-add", upload.none(), async (req, res) => {
   res.json(output);
 });
 
+router.get("/coupon-list-edit/:id", async (req, res) => {
+  const id = +req.params.id || 0;
+  if (!id) return res.redirect("/sales-panel/coupon-list");
+
+  const sql = `SELECT coupon.*, owners.name AS owners_name FROM coupon JOIN owners ON coupon.owners_id = owners.owners_id WHERE coupon.id = ${id}`;
+  const [rows] = await db.query(sql);
+  if (rows.length === 0) {
+    // 沒有該筆資料時，跳回列表頁
+    return res.redirect("/sales-panel/coupon-list");
+  }
+
+  const row = rows[0];
+  if (row.time_start) {
+    row.time_start = moment(row.time_start).format(dateFormat2);
+  }
+  if (row.time_end) {
+    row.time_end = moment(row.time_end).format(dateFormat2);
+  }
+
+  res.render("sales-panel/coupon-list-edit", row);
+});
+
+router.put("/coupon-list-edit/:id", upload.none(), async (req, res) => {
+  const output = {
+    success: false,
+    bodyData: req.body, // 除錯用
+    result: {},
+  };
+
+  const id = +req.params.id || 0;
+  if (!id) {
+    return res.json({ success: false, info: "不正確的主鍵" });
+  }
+
+  const sql = `UPDATE coupon SET ? WHERE id=${id}`;
+
+  try {
+    const [result] = await db.query(sql, [req.body]);
+    output.result = result;
+    output.success = !!(result.affectedRows && result.changedRows);
+  } catch (ex) {
+    // sql 發生錯誤
+    output.error = ex; // 有安全上的問題，只在開發時期除錯用
+  }
+
+  res.json(output);
+});
+
 router.get("/api-comment-list", async (req, res) => {
   const result = await getCommentListData(req);
   res.json(result);

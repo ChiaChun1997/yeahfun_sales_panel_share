@@ -1,0 +1,205 @@
+<%- include("../parts/html-head") %> <%- include("../parts/navbar") %>
+
+<main class="main-content p-3">
+  <!-- 大標 -->
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="m-0">優惠券編輯</h2>
+  </div>
+  <hr />
+  <!-- 表單 -->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <!-- <h3 class="card-title">優惠券編輯</h3> -->
+            <form name="form1" onsubmit="sendData(event)">
+              <!-- 隱藏欄位，資料跟著表單送出去，但是不要讓用戶看到 -->
+              <!-- 訂單id -->
+              <input type="hidden" name="id" value="<%= id %>" />
+
+              <!-- 提示用戶 -->
+              <div class="mb-3">
+                <label for="" class="form-label">場主名稱</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="<%= owners_name %>"
+                  disabled
+                />
+              </div>
+
+              <div class="pb-3">
+                <label for="name" class="form-label">優惠券名稱</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="name"
+                  name="name"
+                  value="<%= name %>"
+                />
+              </div>
+
+              <div class="pb-3">
+                <label for="hash" class="form-label">折扣碼</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="hash"
+                  name="hash"
+                  value="<%= hash %>"
+                />
+              </div>
+
+              <div class="pb-3">
+                <label for="coupon_off" class="form-label">折扣</label>
+                <input
+                  class="form-control"
+                  type="number"
+                  max="0.9"
+                  min="0.1"
+                  step="0.1"
+                  id="coupon_off"
+                  name="coupon_off"
+                  value="<%= coupon_off %>"
+                />
+              </div>
+
+              <div class="pb-3">
+                <label for="time_start" class="form-label">開始日期</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  id="time_start"
+                  name="time_start"
+                  value="<%= time_start %>"
+                />
+              </div>
+
+              <div class="pb-3">
+                <label for="time_end" class="form-label">結束日期</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  id="time_end"
+                  name="time_end"
+                  value="<%= time_end %>"
+                />
+              </div>
+
+              <button type="submit" class="btn btn-primary">修改</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Modal1 -->
+<!-- 提示視窗 lightbox(光箱效果) -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">優惠券修改結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-success" role="alert">優惠券修改成功</div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續修改</button> -->
+        <a
+          href="/sales-panel/coupon-list-edit/<%= id %>"
+          class="btn btn-secondary"
+          >繼續修改</a
+        >
+        <a href="/sales-panel/coupon-list" class="btn btn-primary"
+          >回到優惠券管理頁</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div
+  class="modal fade"
+  id="exampleModal2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">優惠券修改結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">優惠券沒有修改</div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續修改</button> -->
+        <a
+          href="/sales-panel/coupon-list-edit/<%= id %>"
+          class="btn btn-secondary"
+          >繼續修改</a
+        >
+        <a href="/sales-panel/coupon-list" class="btn btn-primary"
+          >回到優惠券管理頁</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("../parts/scripts") %>
+
+<script>
+  const sendData = (e) => {
+    e.preventDefault();
+
+    const fd = new FormData(document.form1);
+
+    fetch("", {
+      method: "PUT",
+      body: fd,
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          myModal.show();
+        } else {
+          myModal2.show();
+        }
+      })
+      .catch((ex) => {
+        console.log("fetch() 發生錯誤，回傳的 JSON 格式是錯的");
+        console.log(ex);
+      });
+  };
+
+  const myModal = new bootstrap.Modal("#exampleModal");
+  const myModal2 = new bootstrap.Modal("#exampleModal2");
+</script>
+
+<%- include("../parts/html-foot") %>
