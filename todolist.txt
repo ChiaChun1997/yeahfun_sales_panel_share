@@ -14,5 +14,6 @@ owner_id = 10 有資料
 
 bug: 編輯時就算沒更動，依然可以編輯成功
 todo: 編輯、刪除功能
+stores_informations 資料表的 bath_time 要使用 varchar 還是 time
 
 進階: 數據分析(?)、財務管理(?)
