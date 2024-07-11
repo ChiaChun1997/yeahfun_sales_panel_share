@@ -5,9 +5,9 @@
     <!-- 將h1自帶的margin消除 -->
     <h2 class="m-0 fs-2">
       修改空間
-      <a class="mx-5 fs-2" href=""
-        ><i class="fa-regular fa-square-plus" style="color: #ffd43b"></i
-      ></a>
+      <a class="mx-5 fs-2" href="/sales-panel/camp-list-add-commodities/<%= rows[0].stores_id %>">
+        <i class="fa-regular fa-square-plus" style="color: #ffd43b"></i>
+      </a>
     </h2>
 
     <ul class="nav nav-underline fs-5">
@@ -235,7 +235,11 @@
         <div class="alert alert-danger" role="alert">資料沒有編輯</div>
       </div>
       <div class="modal-footer">
-        <a href="/sales-panel/camp-list-edit-commodities" class="btn btn-primary">OK</a>
+        <a
+          href="/sales-panel/camp-list-edit-commodities"
+          class="btn btn-primary"
+          >OK</a
+        >
       </div>
     </div>
   </div>
