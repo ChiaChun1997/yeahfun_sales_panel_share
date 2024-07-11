@@ -1,10 +1,11 @@
-<%- include("../parts/html-head") %>
-<%- include("../parts/navbar") %>
+<%- include("../parts/html-head") %> <%- include("../parts/navbar") %>
 <main class="main-content p-3">
   <!-- 大標 -->
   <div class="d-flex justify-content-between align-items-center">
     <h2 class="m-0">優惠券管理</h2>
-    <a href="/sales-panel/coupon-list-add" class="btn btn-outline-success">新增優惠券</a>
+    <a href="/sales-panel/coupon-list-add" class="btn btn-outline-success"
+      >新增優惠券</a
+    >
   </div>
   <hr />
   <div class="row">
@@ -26,7 +27,9 @@
           <% for(let r2 of rows2) { %>
           <tr>
             <td>
-              <a href="javascript: deleteOne()"><i class="fa-solid fa-trash"></i></a>
+              <a href="javascript: deleteOne(<%= r2.id %>)"
+                ><i class="fa-solid fa-trash"></i
+              ></a>
             </td>
             <td><%= r2.id %></td>
             <td><%= r2.name %></td>
@@ -35,7 +38,9 @@
             <td><%= r2.time_start %></td>
             <td><%= r2.time_end %></td>
             <td>
-              <a href="/sales-panel/coupon-list-edit/<%= r2.id %>"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="/sales-panel/coupon-list-edit/<%= r2.id %>"
+                ><i class="fa-solid fa-pen-to-square"></i
+              ></a>
             </td>
           </tr>
           <% } %>
@@ -44,6 +49,21 @@
     </div>
   </div>
 
+  <%- include("../parts/scripts") %>
 
-<%- include("../parts/scripts") %>
-<%- include("../parts/html-foot") %>
+  <script>
+    const deleteOne = async (sid) => {
+      if (confirm(`是否要刪除編號為 ${sid} 的資料?`)) {
+        const r = await fetch(`/sales-panel/coupon-list/${sid}`, {
+          method: "DELETE",
+        });
+        const result = await r.json();
+        console.log(result);
+
+        location.reload(); // 重載頁面
+      }
+    };
+  </script>
+
+  <%- include("../parts/html-foot") %>
+</main>

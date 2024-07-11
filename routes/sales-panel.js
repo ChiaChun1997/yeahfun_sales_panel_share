@@ -542,6 +542,32 @@ router.get("/coupon-list", async (req, res) => {
   res.render("sales-panel/coupon-list", result);
 });
 
+router.delete("/coupon-list/:id", async (req, res) => {
+  const output = {
+    success: false,
+    result: {},
+  };
+
+  const id = +req.params.id || 0;
+  if (!id) {
+    return res.json({ success: false, info: "不正確的主鍵" });
+  }
+
+  const sql = `DELETE FROM coupon WHERE id=${id}`;
+
+  try {
+    const [result] = await db.query(sql);
+    output.result = result;
+    output.success = !!result.affectedRows;
+  } catch (ex) {
+    // sql 發生錯誤
+    output.error = ex; // 有安全上的問題，只在開發時期除錯用
+  }
+
+  res.json(output);
+
+});
+
 router.get("/coupon-list-add", async (req, res) => {
   const result = await getCouponListData(req);
   // 轉向
