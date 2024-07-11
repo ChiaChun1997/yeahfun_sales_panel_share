@@ -388,6 +388,55 @@ router.put(
   }
 );
 
+router.get("/camp-list-edit-commodities/:id", async (req, res) => {
+  const id = +req.params.id || 0;
+  if (!id) return res.redirect("/sales-panel/camp-list");
+
+  const sql = `SELECT * FROM rooms_campsites WHERE stores_id=${id}`;
+  const [rows] = await db.query(sql);
+  if (rows.length === 0) {
+    // 沒有該筆資料時，跳回列表頁
+    return res.redirect("/sales-panel/camp-list");
+  }
+
+  // const row = rows[0];
+
+  res.render("sales-panel/camp-list-edit-commodities", { rows });
+});
+
+router.put(
+  "/camp-list-edit-commodities/:id",
+  upload.none(),
+  async (req, res) => {
+    const output = {
+      success: false,
+      bodyData: req.body, // 除錯用
+      result: {},
+    };
+
+    const id = +req.params.id || 0;
+    const rooms_campsites_id = +req.body.rooms_campsites_id || 0;
+    if (!id || !rooms_campsites_id) {
+      return res.json({ success: false, info: "不正確的主鍵或商品編號" });
+    }
+    
+
+    const sql = `UPDATE rooms_campsites SET ? WHERE stores_id=${id} AND rooms_campsites_id=${rooms_campsites_id}`;
+
+    try {
+      const [result] = await db.query(sql, [req.body]);
+      output.result = result;
+      output.success = !!(result.affectedRows && result.changedRows);
+    } catch (ex) {
+      // sql 發生錯誤
+      output.error = ex; // 有安全上的問題，只在開發時期除錯用
+    }
+
+    res.json(output);
+  
+  }
+);
+
 router.get("/camp-list-add", async (req, res) => {
   const result = await getCampSiteListData(req);
   // 轉向

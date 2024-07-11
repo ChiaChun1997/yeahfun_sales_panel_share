@@ -9,13 +9,25 @@
 
     <ul class="nav nav-underline fs-5">
       <li class="nav-item mx-3">
-        <a class="nav-link text-success p-0" href="#">修改場地資料</a>
+        <a
+          class="nav-link text-success p-0"
+          href="/sales-panel/camp-list-edit/<%= stores_id %>"
+          >修改場地資料</a
+        >
       </li>
       <li class="nav-item mx-3">
-        <a class="nav-link text-warning p-0" href="/sales-panel/camp-list-edit-information/<%= stores_id %>">修改場地資訊</a>
+        <a
+          class="nav-link text-warning p-0"
+          href="/sales-panel/camp-list-edit-information/<%= stores_id %>"
+          >修改場地資訊</a
+        >
       </li>
       <li class="nav-item mx-3">
-        <a class="nav-link text-warning p-0" href="#">修改空間數量</a>
+        <a
+          class="nav-link text-warning p-0"
+          href="/sales-panel/camp-list-edit-commodities/<%= stores_id %>"
+          >修改空間數量</a
+        >
       </li>
     </ul>
   </div>
@@ -170,41 +182,59 @@
   </form>
 </main>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">資料編輯結果</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <div class="alert alert-success" role="alert">
-                  編輯成功
-              </div>
-          </div>
-          <div class="modal-footer">
-              <a href="/sales-panel/camp-list" class="btn btn-primary">OK</a>
-          </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">資料編輯結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
+      <div class="modal-body">
+        <div class="alert alert-success" role="alert">編輯成功</div>
+      </div>
+      <div class="modal-footer">
+        <a href="/sales-panel/camp-list" class="btn btn-primary">OK</a>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="modal fade" id="exampleModa2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModa2"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabe2">資料編輯結果</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <div class="alert alert-danger" role="alert">
-                  資料沒有編輯
-              </div>
-          </div>
-          <div class="modal-footer">
-              <a href="/sales-panel/camp-list-edit" class="btn btn-primary">OK</a>
-          </div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabe2">資料編輯結果</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
+      <div class="modal-body">
+        <div class="alert alert-danger" role="alert">資料沒有編輯</div>
+      </div>
+      <div class="modal-footer">
+        <a href="/sales-panel/camp-list-edit" class="btn btn-primary">OK</a>
+      </div>
+    </div>
   </div>
 </div>
 
